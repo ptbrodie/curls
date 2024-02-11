@@ -20,7 +20,7 @@ setup(name='curls',
 	  'regex==2023.12.25',
 	  'requests==2.31.0',
 	  'six==1.16.0',
-	  'terminaltables==3.1.10',
+	  'terminaltables==3.1.0',
 	  'tzlocal==5.2',
 	  'urllib3==1.26.18'
       ],

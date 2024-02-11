@@ -32,11 +32,13 @@ def run_command(command, args):
         if not curl:
             raise Exception(f"Curl not found: '{command}'.")
         print(curl.command)
-        subprocess.call(curl.command.replace('curls', '/usr/bin/curl').replace('./', ''), shell=True)
+        pieces = curl.command.split(' ')
+        shcmd = ' '.join(['curl', *pieces[1:]])
+        subprocess.call(shcmd, shell=True)
     else:
-        cmd = ' '.join([*args])
-        subprocess.call(cmd.replace('curls', '/usr/bin/curl').replace('./', ''), shell=True)
-        cq.save_history(cmd)
+        shcmd = ' '.join(['curl', *args[1:]])
+        subprocess.call(shcmd, shell=True)
+        cq.save_history(' '.join(['curls', *args[1:]]))
 
 
 command = sys.argv[1] if len(sys.argv) > 1 else None
