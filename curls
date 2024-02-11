@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+import sys
+
+from commands.api import APICommand, APIAddCommand, APIDeleteCommand, APIListCommand
+from commands.help import HelpCommand
+from commands.history import HistoryCommand
+from commands.reset import ResetCommand
+from commands.use import UseCommand
+import data
+from data import models
+from data.queries import curl as cq
+
+
+def run_command(command, args):
+    COMMANDS = {
+        'history': HistoryCommand,
+        'reset': ResetCommand,
+        'api': APICommand,
+        'use': UseCommand,
+        'add': APIAddCommand,
+        'delete': APIDeleteCommand,
+        'list': APIListCommand,
+        'help': HelpCommand,
+    }
+    if command in COMMANDS.keys():
+        return COMMANDS[command].run(args)
+    if re.match(data.ID_REGEX, command):
+        curl = cq.get_by_id(command)
+        if not curl:
+            raise Exception(f"Curl not found: '{command}'.")
+        print(curl.command)
+        subprocess.call(curl.command.replace('curls', 'curl').replace('./', ''), shell=True)
+    else:
+        cmd = ' '.join([*args])
+        subprocess.call(cmd.replace('curls', 'curl').replace('./', ''), shell=True)
+        cq.save_history(cmd)
+
+
+command = sys.argv[1] if len(sys.argv) > 1 else None
+args = sys.argv[1:] if len(sys.argv) > 2 else []
+models.init()
+if not command:
+    command = 'list'
+try:
+    run_command(command, sys.argv)
+except Exception as e:
+    print(e)
