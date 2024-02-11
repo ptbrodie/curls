@@ -1,7 +1,7 @@
 from datetime import datetime
 import peewee
 
-from data.models.base import BaseModel
+from src.data.models.base import BaseModel
 
 
 class API(BaseModel):

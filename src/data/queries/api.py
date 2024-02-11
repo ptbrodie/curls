@@ -1,9 +1,9 @@
 from datetime import datetime
 from uuid import uuid4
 
-from data.models.api import API
-from data.models.curl import Curl
-from data.models.joins import APICurlJoin
+from src.data.models.api import API
+from src.data.models.curl import Curl
+from src.data.models.joins import APICurlJoin
 
 
 def get_by_name(name):

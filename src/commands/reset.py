@@ -1,7 +1,7 @@
 import shutil
 
-from commands.base import CurlsCommand
-import data
+from src.commands.base import CurlsCommand
+import src.data
 
 
 class ResetCommand(CurlsCommand):

@@ -1,6 +1,6 @@
 from uuid import uuid4 
 
-from data.models.curl import Curl
+from src.data.models.curl import Curl
 
 
 def get_by_id(id):

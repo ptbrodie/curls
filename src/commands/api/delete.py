@@ -1,5 +1,5 @@
-from commands.base import CurlsCommand
-from data.queries import api as aq
+from src.commands.base import CurlsCommand
+from src.data.queries import api as aq
 
 
 class APIDeleteCommand(CurlsCommand):

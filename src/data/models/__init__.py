@@ -1,8 +1,8 @@
-from data import DB
-from data.models.api import API
-from data.models.curl import Curl
-from data.models.joins import APICurlJoin
-from data.queries import api as aq
+from src.data import DB
+from src.data.models.api import API
+from src.data.models.curl import Curl
+from src.data.models.joins import APICurlJoin
+from src.data.queries import api as aq
 
 
 def init():

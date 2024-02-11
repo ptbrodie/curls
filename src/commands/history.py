@@ -1,7 +1,7 @@
 from terminaltables import AsciiTable
 
-from commands.base import CurlsCommand
-from data.queries import curl as cq
+from src.commands.base import CurlsCommand
+from src.data.queries import curl as cq
 
 
 class HistoryCommand(CurlsCommand):

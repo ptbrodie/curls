@@ -1,11 +1,11 @@
-from commands.base import CurlsCommand
-from commands.api.add import APIAddCommand
-from commands.api.delete import APIDeleteCommand
-from commands.api.help import APIHelpCommand
-from commands.api.create import APICreateCommand
-from commands.api.list import APIListCommand
-from commands import error
-from data.queries import api as aq
+from src.commands.base import CurlsCommand
+from src.commands.api.add import APIAddCommand
+from src.commands.api.delete import APIDeleteCommand
+from src.commands.api.help import APIHelpCommand
+from src.commands.api.create import APICreateCommand
+from src.commands.api.list import APIListCommand
+from src.commands import error
+from src.data.queries import api as aq
 
 
 class APICommand(CurlsCommand):

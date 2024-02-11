@@ -4,14 +4,14 @@ import re
 import subprocess
 import sys
 
-from commands.api import APICommand, APIAddCommand, APIDeleteCommand, APIListCommand
-from commands.help import HelpCommand
-from commands.history import HistoryCommand
-from commands.reset import ResetCommand
-from commands.use import UseCommand
-import data
-from data import models
-from data.queries import curl as cq
+from src.commands.api import APICommand, APIAddCommand, APIDeleteCommand, APIListCommand
+from src.commands.help import HelpCommand
+from src.commands.history import HistoryCommand
+from src,commands.reset import ResetCommand
+from src.commands.use import UseCommand
+import src.data
+from src.data import models
+from src.data.queries import curl as cq
 
 
 def run_command(command, args):

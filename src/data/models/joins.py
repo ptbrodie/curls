@@ -1,8 +1,8 @@
 import peewee
 
-from data.models.base import BaseModel
-from data.models.api import API
-from data.models.curl import Curl
+from src.data.models.base import BaseModel
+from src.data.models.api import API
+from src.data.models.curl import Curl
 
 
 class APICurlJoin(BaseModel):

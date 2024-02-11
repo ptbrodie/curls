@@ -1,4 +1,4 @@
-from commands.base import CurlsCommand
+from src.commands.base import CurlsCommand
 
 
 class APIHelpCommand(CurlsCommand):

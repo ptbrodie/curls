@@ -1,6 +1,6 @@
 import peewee
 
-from data.models.base import BaseModel
+from src.data.models.base import BaseModel
 
 
 class Curl(BaseModel):
