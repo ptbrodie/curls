@@ -1,4 +1,6 @@
 from distutils.core import setup
+from setuptools import find_packages
+
 
 setup(name='curls',
       version='0.0.1',
@@ -6,6 +8,7 @@ setup(name='curls',
       url='http://github.com/ptbrodie/curls',
       author='Patrick Brodie',
       author_email='ptbrodie@gmail.com',
+      packages=find_packages("."),
       install_requires=[
 	  'certifi==2024.2.2',
 	  'charset-normalizer==3.3.2',

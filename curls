@@ -7,9 +7,9 @@ import sys
 from src.commands.api import APICommand, APIAddCommand, APIDeleteCommand, APIListCommand
 from src.commands.help import HelpCommand
 from src.commands.history import HistoryCommand
-from src,commands.reset import ResetCommand
+from src.commands.reset import ResetCommand
 from src.commands.use import UseCommand
-import src.data
+import src.data as data
 from src.data import models
 from src.data.queries import curl as cq
 
@@ -32,10 +32,10 @@ def run_command(command, args):
         if not curl:
             raise Exception(f"Curl not found: '{command}'.")
         print(curl.command)
-        subprocess.call(curl.command.replace('curls', 'curl').replace('./', ''), shell=True)
+        subprocess.call(curl.command.replace('curls', '/usr/bin/curl').replace('./', ''), shell=True)
     else:
         cmd = ' '.join([*args])
-        subprocess.call(cmd.replace('curls', 'curl').replace('./', ''), shell=True)
+        subprocess.call(cmd.replace('curls', '/usr/bin/curl').replace('./', ''), shell=True)
         cq.save_history(cmd)
 
 
