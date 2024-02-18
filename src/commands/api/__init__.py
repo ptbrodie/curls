@@ -11,6 +11,14 @@ from src.data.queries import api as aq
 class APICommand(CurlsCommand):
     name = "api"
     description = "Commands to run on api of curls."
+    help_text = """
+Manage an API.
+    $ curls api - list your APIs
+        * [add] [curl_id] - add the given curl to the active API.
+        * [del] [curl_id] - delete the given curl from the active API.
+        * [create] [api_name] - create a new API with the given name.
+        * [-h|help] - show help.
+"""
     subcommands = {
         'add': APIAddCommand,
         'create': APICreateCommand,

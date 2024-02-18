@@ -1,20 +1,28 @@
+from src.commands.api import APICommand
 from src.commands.base import CurlsCommand
+from src.commands.export import ExportCommand
+from src.commands.history import HistoryCommand
+from src.commands.imp import ImportCommand
+from src.commands.reset import ResetCommand
+from src.commands.use import UseCommand
 
 
 class HelpCommand(CurlsCommand):
     name = "help"
     description = "Display help for commands."
     subcommands = {}
+    commands = [
+        APICommand,
+        UseCommand,
+        ExportCommand,
+        ImportCommand,
+        HistoryCommand,
+        ResetCommand,
+    ]
 
     @classmethod
     def run(cls, args):
-        print("HELP COMMAND")
-        print("TODO: update help to print out the commands and their descriptions")
-        print("TODO: error handling should log the entire command")
-        print("TODO: show tree and subtree of commands when help called")
-        print("TODO: add options to commands")
-        print("Commands:")
-        print("  - api")
-        print("  - history")
-        print("  - reset")
+        for command in cls.commands:
+            command.help(args)
+        return True
 

@@ -4,6 +4,7 @@ from uuid import uuid4
 from src.data.models.api import API
 from src.data.models.curl import Curl
 from src.data.models.joins import APICurlJoin
+from src.data.queries import curl as cq
 
 
 def get_by_name(name):
@@ -56,3 +57,13 @@ def delete_from_api(api, curl_id):
     curl = Curl.get_by_id(curl_id)
     q = APICurlJoin.delete().where(APICurlJoin.api_id==api.id, APICurlJoin.curl_id==curl.id)
     q.execute()
+
+
+def to_json(api):
+    curls = get_curls(api)
+    result = {
+        "name": api.name,
+        "date_created": api.date_created.isoformat(),
+        "curls": [cq.to_json(c) for c in curls]
+    }
+    return result

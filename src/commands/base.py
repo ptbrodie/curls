@@ -3,6 +3,7 @@
 class CurlsCommand():
     name = "No command name"
     description = "No description provided"
+    help_text = "No help text provided."
     subcommands = {}
 
     @classmethod
@@ -20,3 +21,8 @@ class CurlsCommand():
     @classmethod
     def run(cls, args):
         raise NotImplementedError()
+
+    @classmethod
+    def help(cls, args):
+        print(cls.help_text)
+        return True

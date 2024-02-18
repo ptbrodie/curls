@@ -1,5 +1,5 @@
 dateparser
 peewee
 requests
-terminaltables
+terminaltables==3.1.0
 urllib3<2.0

@@ -8,6 +8,11 @@ class HistoryCommand(CurlsCommand):
 
     name = "history"
     description = "Show curls command history. All curls commands are stored by default."
+    help_text = """
+Show all curls history.
+    $ curls history - show history of all curls, in chronological order, with the most recent at the bottom.
+        * [-h|help] - show help
+"""
     subcommands = {}
 
     @classmethod
@@ -22,8 +27,10 @@ class HistoryCommand(CurlsCommand):
     def get_subcommands(cls):
         return cls.subcommands
 
-    @staticmethod
-    def run(args):
+    @classmethod
+    def run(cls, args):
+        if len(args) > 2 and args[2] in ['-h', 'help']:
+            return cls.help(args)
         curls = cq.get_history()
         tabledata = []
         headers = ["id", "date", "command"]
