@@ -16,6 +16,14 @@ def get_by_name(name):
     except:
         return None
 
+def get_by_identifier(identifier):
+    qs = [get_by_id, get_by_name]
+    for q in qs:
+        curl = q(identifier)
+        if curl:
+            return curl
+    return None
+
 
 def delete(id):
     return Curl.delete().where(Curl.id==id).execute()
@@ -47,7 +55,7 @@ def delete_curl(id):
 
 
 def add_metadata(id, name=None, description=None):
-    curl = get_by_id(id)
+    curl = get_by_identifier(id)
     if not curl:
         return None
     if name:

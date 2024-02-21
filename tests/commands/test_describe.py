@@ -27,6 +27,18 @@ def test_describe_command_success():
 
 
 @clean_setup
+def test_describe_command_from_name_success():
+    curl = cq.save_history('curls google.com')
+    cq.add_metadata(curl.id, name='test-name')
+    curl = cq.get_by_id(curl.id)
+    result = DescribeCommand.run(['curls', 'describe', curl.name, 'test-description'])
+    assert result.success
+    assert result.output is None
+    curl = cq.get_by_id(curl.id)
+    assert curl.description == 'test-description'
+
+
+@clean_setup
 def test_description_command_not_found():
     result = DescribeCommand.run(['curls', 'describe', 'not-found', 'test-description'])
     assert not result.success

@@ -26,6 +26,17 @@ def test_info_command_success():
 
 
 @clean_setup
+def test_info_command_by_name_success():
+    curl = cq.save_history('curls google.com')
+    NAME = "google"
+    cq.add_metadata(curl.id, name=NAME)
+    result = InfoCommand.run(['curls', 'info', NAME])
+    assert result.success
+    assert "google.com" in result.output
+    cq.delete(curl.id)
+
+
+@clean_setup
 def test_info_command_not_found():
     result = InfoCommand.run(['curls', 'info', 'not-found'])
     assert not result.success

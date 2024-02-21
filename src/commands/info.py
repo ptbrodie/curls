@@ -20,7 +20,7 @@ class InfoCommand(CurlsCommand):
             return command_result(False, output="curl_id required. Try 'curls info help' for help.")
         if args[2] in ['-h', 'help']:
             return command_result(True, cls.help(args))
-        curl = cq.get_by_id(args[2])
+        curl = cq.get_by_identifier(args[2])
         if not curl:
             return command_result(False, output=f"Curl not found: '{args[2]}'.")
         result = "\n"

@@ -71,7 +71,7 @@ def run_command(command, args):
     else:
         shcmd = ' '.join(['curl', *format_bash(args[1:])])
         subprocess.call(shcmd, shell=True)
-        cq.save_history(' '.join(['curls', *args[1:]]))
+        cq.save_history(' '.join(['curls', *format_bash(args[1:])]))
 
 
 command = sys.argv[1] if len(sys.argv) > 1 else None
