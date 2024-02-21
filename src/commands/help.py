@@ -4,12 +4,11 @@ from src.commands.export import ExportCommand
 from src.commands.history import HistoryCommand
 from src.commands.imp import ImportCommand
 from src.commands.reset import ResetCommand
+from src.commands.result import command_result
 from src.commands.use import UseCommand
 
 
 class HelpCommand(CurlsCommand):
-    name = "help"
-    description = "Display help for commands."
     subcommands = {}
     commands = [
         APICommand,
@@ -22,7 +21,8 @@ class HelpCommand(CurlsCommand):
 
     @classmethod
     def run(cls, args):
+        output = ""
         for command in cls.commands:
-            command.help(args)
-        return True
+            output += command.help(args)
+        return command_result(True, output, None)
 

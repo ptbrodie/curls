@@ -1,16 +1,16 @@
 from terminaltables import AsciiTable
 
 from src.commands.base import CurlsCommand
+from src.commands.result import command_result
 from src.data.queries import curl as cq
+from src.formatting import text
 
 
 class HistoryCommand(CurlsCommand):
 
-    name = "history"
-    description = "Show curls command history. All curls commands are stored by default."
-    help_text = """
-Show all curls history.
-    $ curls history - show history of all curls, in chronological order, with the most recent at the bottom.
+    help_title = "Show all curls history."
+    help_text = \
+"""     $ curls history - show history of all curls, in chronological order, with the most recent at the bottom.
         * [-h|help] - show help
 """
     subcommands = {}
@@ -30,16 +30,17 @@ Show all curls history.
     @classmethod
     def run(cls, args):
         if len(args) > 2 and args[2] in ['-h', 'help']:
-            return cls.help(args)
+            return command_result(True, output=cls.help(args))
         curls = cq.get_history()
         tabledata = []
-        headers = ["id", "date", "command"]
+        headers = ["id", "name", "date", "command"]
         tabledata.append(headers)
         for curl in curls:
             tabledata.append([
                 curl.id,
+                curl.name or "-",
                 curl.timestamp,
-                curl.command
+                f"$ {text.wrapped_text(curl.command)}"
             ])
         table_instance = AsciiTable(tabledata, "History")
-        print(table_instance.table)
+        return command_result(success=True, output=table_instance.table, errors=[])

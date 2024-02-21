@@ -1,20 +1,19 @@
 import shutil
 
 from src.commands.base import CurlsCommand
+from src.commands.result import command_result
 import src.data as data
 
 
 class ResetCommand(CurlsCommand):
-    name = "reset"
-    description = "Reset your curls history. Delete all saved curls."
     subcommands = {}
-    help_text = """
-Reset curls.
-    $ curls reset - delete all curls, and all apis.
+    help_title = "Reset curls."
+    help_text = \
+"""     $ curls reset - delete all curls, and all apis.
         * WARNING: This cannot be undone.
 """
 
     @classmethod
     def run(cls, args):
         shutil.rmtree(data.CURLSDIR)
-        print("Done resetting.")
+        return command_result(success=True, output="All curls and apis have been deleted.", errors=[])

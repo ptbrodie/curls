@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 
+from termcolor import colored
 import re
 import subprocess
 import sys
 
-from src.commands.api import APICommand, APIAddCommand, APIDeleteCommand, APIListCommand
+from src.commands.api import APICommand, APIAddCommand, APIRemoveCommand, APIListCommand
+from src.commands.delete import DeleteCommand
+from src.commands.describe import DescribeCommand
 from src.commands.export import ExportCommand
 from src.commands.help import HelpCommand
 from src.commands.history import HistoryCommand
+from src.commands.info import InfoCommand
 from src.commands.imp import ImportCommand
+from src.commands.name import NameCommand
 from src.commands.reset import ResetCommand
+from src.commands.result import command_result
 from src.commands.use import UseCommand
 import src.data as data
 from src.data import models
@@ -26,25 +32,38 @@ def format_bash(args):
     return result
 
 
+def handle_result(result):
+    if result.success and result.output:
+        print(result.output)
+    elif not result.success and result.output:
+        print(colored("ERROR:", None, None, attrs=['bold']), result.output)
+
+
 def run_command(command, args):
     COMMANDS = {
         'add': APIAddCommand,
         'api': APICommand,
-        'delete': APIDeleteCommand,
+        'delete': DeleteCommand,
+        'describe': DescribeCommand,
         'export': ExportCommand,
         'help': HelpCommand,
         'history': HistoryCommand,
+        'info': InfoCommand,
         'import': ImportCommand,
         'list': APIListCommand,
+        'name': NameCommand,
+        'remove': APIRemoveCommand,
         'reset': ResetCommand,
         'use': UseCommand,
     }
     if command in COMMANDS.keys():
-        return COMMANDS[command].run(args)
+        result = COMMANDS[command].run(args)
+        return handle_result(result)
     if re.match(data.ID_REGEX, command):
         curl = cq.get_by_id(command)
         if not curl:
-            raise Exception(f"Curl not found: '{command}'.")
+            result = command_result(False, output=f"No curl found with id '{command}'.")
+            return handle_result(result)
         print(curl.command)
         pieces = curl.command.split(' ')
         shcmd = ' '.join(['curl', *format_bash(pieces[1:])])

@@ -1,12 +1,16 @@
 from src.commands.base import CurlsCommand
+from src.commands.result import command_result
 from src.data.queries import api as aq
 
 
 class APIDeleteCommand(CurlsCommand):
-    name = "api delete [curl_id]"
-    description = "Delete a curl from an api by its id."
+    options = []
 
     @classmethod
     def run(cls, args):
-        curr_api = aq.get_current()
-        aq.delete_from_api(curr_api, args[2])
+        name = args[3]
+        api = aq.get_by_name(name)
+        if not api:
+            return command_result(False, output=f"API not found: '{name}'.")
+        aq.delete(api.id)
+        return command_result(True, None, None)
