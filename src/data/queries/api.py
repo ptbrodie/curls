@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 from uuid import uuid4
 
 from src.data.models.api import API
@@ -30,7 +31,12 @@ def list_apis():
     return [a for a in q]
     
 
+def validate_name(name):
+    return not re.match(r'.*\s.*', name)
+
 def new_api(name, current=False):
+    if not validate_name(name):
+        raise Exception('Name invalid: spaces not allowed')
     api = get_by_name(name)
     if api:
         return None

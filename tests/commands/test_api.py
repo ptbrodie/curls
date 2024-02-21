@@ -1,18 +1,22 @@
 from src.commands.api import APICommand, APIAddCommand, APIRemoveCommand
 from src.data.queries import api as aq, curl as cq
+from tests import clean_setup
 
+@clean_setup
 def test_api_command_no_args():
     result = APICommand.run(['curls', 'api'])
     assert result.success
     assert "default" in result.output
 
 
+@clean_setup
 def test_api_command_help():
     result = APICommand.run(['curls', 'api', 'help'])
     assert result.success
     assert APICommand.help_title in result.output
 
 
+@clean_setup
 def test_api_command_create_delete():
     name = "test-api-command-create-delete"
     result = APICommand.run(['curls', 'api', 'create', name])
@@ -30,6 +34,7 @@ def test_api_command_create_delete():
     assert not curl
 
 
+@clean_setup
 def test_api_command_create_duplicate():
     name = "test-api-command-create-duplicate"
     result = APICommand.run(['curls', 'api', 'create', name])
@@ -44,6 +49,7 @@ def test_api_command_create_duplicate():
     assert not curl
 
 
+@clean_setup
 def test_api_command_create_invalid_name():
     name = "test api command create invalid name"
     result = APICommand.run(['curls', 'api', 'create', name])
@@ -53,6 +59,7 @@ def test_api_command_create_invalid_name():
     assert not curl
 
 
+@clean_setup
 def test_api_command_delete_not_found():
     name = "test-api-command-delete-not-found"
     result = APICommand.run(['curls', 'api', 'delete', name])
@@ -62,6 +69,7 @@ def test_api_command_delete_not_found():
     assert not curl
 
 
+@clean_setup
 def test_api_add_remove_curl():
     cq.delete_all()
     aq.delete_all()
@@ -81,6 +89,7 @@ def test_api_add_remove_curl():
     cq.delete(curl.id)
 
 
+@clean_setup
 def test_api_add_remove_curl_2():
     cq.delete_all()
     aq.delete_all()
