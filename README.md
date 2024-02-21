@@ -82,7 +82,30 @@ $ curls
 | 350f41c5a89a485187649931dbb4c6b5 | -    | 2024-02-21 19:35:30 | $ curls -XPOST https://api.example.com/api/v1/example -H 'content-type:|
 |                                  |      |                     | application/json' -d '{"some": {"data": "here"}}'                      |
 +----------------------------------+------+---------------------+------------------------------------------------------------------------+
+
+# Remove a cURL from an API
+$ curls remove 350f41c5a89a485187649931dbb4c6b5
+$ curls
++new-api-+-------+---------+-----------+
+| id     | name  | date    | command   |
++--------+-------+---------+-----------+
 ```
+
+## Sharing Your APIs
+
+```bash
+# Export an API to a json file.
+[mine] $ curls export shared-api
+API exported to shared-api.json.
+
+# Import an API from a json file.
+[yours] $ curls import shared-api.json
+[yours] $ curls api
+* default
+  shared-api
+[yours] $ curls use shared-api
+```
+
 
 
 
