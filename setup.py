@@ -3,11 +3,12 @@ from setuptools import find_packages
 
 
 setup(name='curls',
-      version='0.0.1',
+      version='0.0.2',
       description='A command-line alternative to Postman.',
+      long_description=open('README.md').read(),
+      long_description_content_type='text/markdown',
       url='http://github.com/ptbrodie/curls',
       author='Patrick Brodie',
-      author_email='ptbrodie@gmail.com',
       packages=find_packages("."),
       install_requires=[
 	  'certifi==2024.2.2',
@@ -20,6 +21,7 @@ setup(name='curls',
 	  'regex==2023.12.25',
 	  'requests==2.31.0',
 	  'six==1.16.0',
+	  'termcolor==2.4.0',
 	  'terminaltables==3.1.0',
 	  'tzlocal==5.2',
 	  'urllib3==1.26.18'
