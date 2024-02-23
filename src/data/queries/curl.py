@@ -1,3 +1,4 @@
+import dateparser
 from uuid import uuid4 
 
 from src.data.models.curl import Curl
@@ -74,6 +75,19 @@ def to_json(curl):
         "description": curl.description,
         "command": curl.command
     }
+
+
+def from_json(curl_json):
+    id = str(uuid4()).replace('-', '')
+    curl = Curl.create(
+        id=id,
+        name=curl_json['name'],
+        timestamp=dateparser.parse(curl_json['timestamp']),
+        description=curl_json['description'],
+        command=curl_json['command']
+    )
+    curl.save()
+    return curl
 
 
 def delete_all():

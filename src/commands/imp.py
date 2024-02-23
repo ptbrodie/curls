@@ -42,9 +42,8 @@ class ImportCommand(CurlsCommand):
             uu = str(uuid4())
             name = api_name if api_name else f"{content['name']}-{uu[:8]}"
             api = aq.new_api(name)
-            api.id = content["id"]
             api.date_created = content["date_created"]
             for curl_data in content["curls"]:
-                curl = cq.new_curl(curl_data["command"], curl_data["timestamp"])
+                curl = cq.from_json(curl_data)
                 aq.add_to_api(api, curl.id)
             return command_result(True, output=f"Imported API '{api.name}' from '{filename}'.")
