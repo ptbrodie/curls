@@ -5,7 +5,12 @@
 
 ## Installation
 ```bash
+# Using homebrew
 $ brew install ptbrodie/curls/curls
+```
+```bash
+# Using pip
+# pip install curls-cli
 ```
 
 ## Usage

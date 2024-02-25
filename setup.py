@@ -2,7 +2,7 @@ from distutils.core import setup
 from setuptools import find_packages
 
 
-setup(name='curls',
+setup(name='curls-cli',
       version='0.0.2',
       description='A command-line alternative to Postman.',
       long_description=open('README.md').read(),
